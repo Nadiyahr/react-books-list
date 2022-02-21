@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Button from '@mui/material/Button';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 
 const columns: GridColDef[] = [
@@ -38,15 +39,25 @@ type Props = {
 
 export const Table: React.FC<Props> = (props) => {
   const { books } = props;
+  const [nbRows, setNbRows] = React.useState(15);
+  const removeRow = () => setNbRows((x) => Math.max(0, x - 1));
+  const addRow = () => setNbRows((x) => Math.min(100, x + 1));
 
   const rows = books;
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div style={{ height: 400, width: '60%' }}>
+      <h1>Tabble of my books</h1>
+      <Button variant="outlined" onClick={removeRow}>
+        Remove a row
+      </Button>
+      <Button variant="outlined" onClick={addRow}>
+        Add a row
+      </Button>
       <DataGrid
-        rows={rows}
+        rows={rows.slice(0, nbRows)}
         columns={columns}
-        pageSize={5}
+        pageSize={15}
         rowsPerPageOptions={[15]}
         checkboxSelection
         disableSelectionOnClick
