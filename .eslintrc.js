@@ -9,6 +9,7 @@ module.exports = {
     'react/self-closing-comp': 0,
     'react/display-name': 0,
     'import/named': 0,
+    'react/jsx-curly-brace-presence': 0,
 
     // JavaScript
     semi: 0,

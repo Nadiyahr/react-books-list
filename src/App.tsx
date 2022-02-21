@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { requestBooks } from './api/api';
 import './App.scss';
 import { Table } from './Table';
 import { AddForm } from './AddForm';
+import { Header } from './Header';
 
 export const App: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -22,11 +23,7 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <nav>
-        {/* <Link to="/">Home</Link> */}
-        <Link to="/">Dashboard</Link>
-        <Link to="/add">Add Book</Link>
-      </nav>
+      <Header />
       <Routes>
         {/* <Route path="/" element={<h1>Home page</h1>} /> */}
         <Route path="/" element={<Table books={books} />} />
