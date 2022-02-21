@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { requestBooks } from './api/api';
 import './App.scss';
+import CssBaseline from '@mui/material/CssBaseline';
+// import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import { requestBooks } from './api/api';
 import { Table } from './Table';
 import { AddForm } from './AddForm';
 import { Header } from './Header';
@@ -15,28 +18,44 @@ export const App: React.FC = () => {
     setBooks(booksList);
   };
 
-  // const max = (Math.max(...books.map(book => book.id)));
-
   useEffect(() => {
     loadData();
   }, []);
 
   return (
-    <div className="App">
-      <Header />
-      <Routes>
-        {/* <Route path="/" element={<h1>Home page</h1>} /> */}
-        <Route path="/" element={<Table books={books} />} />
-        <Route path="add" element={<AddForm data={books} />} />
-        <Route
-          path="*"
-          element={(
-            <p>
-              Page not found
-            </p>
-          )}
-        />
-      </Routes>
-    </div>
+    <>
+      <CssBaseline />
+      <Container maxWidth="md">
+        {/* <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} /> */}
+        <Header />
+        <Routes>
+          <Route path="/" element={<Table books={books} />} />
+          <Route path="add" element={<AddForm data={books} />} />
+          <Route
+            path="*"
+            element={(
+              <p>
+                Page not found
+              </p>
+            )}
+          />
+        </Routes>
+      </Container>
+    </>
+    // <div className="App">
+    //   <Header />
+    //   <Routes>
+    //     <Route path="/" element={<Table books={books} />} />
+    //     <Route path="add" element={<AddForm data={books} />} />
+    //     <Route
+    //       path="*"
+    //       element={(
+    //         <p>
+    //           Page not found
+    //         </p>
+    //       )}
+    //     />
+    //   </Routes>
+    // </div>
   );
 };
