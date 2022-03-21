@@ -13,7 +13,7 @@ export const AddForm: React.FC = () => {
   const [newCategory, setNewCathegory] = useState('');
   const [newISBN, setNewISBN] = useState(0);
   const [newYear, setNewYear] = useState(0);
-  const [formErrors, setFormErrors] = useState({});
+  // const [formErrors, setFormErrors] = useState({});
   const history = useNavigate();
 
   const getNewId = async () => {
@@ -24,24 +24,23 @@ export const AddForm: React.FC = () => {
     setNewId(id);
   };
 
-  function minMaxLength(text: string, minLength: number, maxLength: number) {
-    let result = !text || text.length < minLength;
+  // function minMaxLength(text: string, minLength: number, maxLength: number) {
+  //   let result = !text || text.length < minLength;
 
-    if (maxLength) {
-      result = result || text.length < minLength;
-    }
+  //   if (maxLength) {
+  //     result = result || text.length < minLength;
+  //   }
 
-    return result;
-  }
+  //   return result;
+  // }
 
   const hanndleChange = (e: React.FormEvent<EventTarget>) => {
     const { name, value } = e.target as HTMLInputElement;
 
     switch (name) {
       case 'title':
-        if (minMaxLength(value, 2, 6)) {
-          
-        }
+        // if (minMaxLength(value, 2, 6)) {
+        // }
         setNewTitle(value);
         break;
 
