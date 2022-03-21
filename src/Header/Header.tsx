@@ -14,14 +14,14 @@ export const Header = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <Button
               component={Link}
-              to={'/'}
+              to="/"
               sx={{ my: 2, color: 'white', display: 'block' }}
             >
               Dashboard
             </Button>
             <Button
               component={Link}
-              to={'/add'}
+              to="/add"
               sx={{ my: 2, color: 'white', display: 'block' }}
             >
               Add Book

@@ -22,6 +22,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 0,
     '@typescript-eslint/ban-types': 0,
     '@typescript-eslint/semi': ['error'],
+    '@typescript-eslint/no-use-before-define': 0,
   },
   parser: '@typescript-eslint/parser',
   plugins: [

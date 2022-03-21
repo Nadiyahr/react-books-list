@@ -1,4 +1,5 @@
-const BASE_URL = 'https://my-json-server.typicode.com/Nadiyahr/db-json/books';
+/* eslint-disable no-console */
+const BASE_URL = 'http://localhost:3004/books';
 
 export const requestBooks = () => {
   return fetch(BASE_URL)
@@ -9,4 +10,23 @@ export const requestBooks = () => {
 
       return response.json();
     });
+};
+
+export const addBook = (data: Book) => {
+  return fetch(BASE_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then(res => res.json())
+    .then(result => console.log(result))
+    .catch(err => console.log(err));
+};
+
+export const deleteBook = (id: number) => {
+  return fetch(`${BASE_URL}/${id}`, {
+    method: 'DELETE',
+  });
 };
