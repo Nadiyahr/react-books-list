@@ -21,7 +21,6 @@ export const addBook = (data: Book) => {
     body: JSON.stringify(data),
   })
     .then(res => res.json())
-    .then(result => console.log(result))
     .catch(err => console.log(err));
 };
 

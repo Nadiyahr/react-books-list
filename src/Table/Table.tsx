@@ -40,16 +40,17 @@ const columns: GridColDef[] = [
 
 type Props = {
   books: Book[];
-  cangeBooks: (data: Book[], id: number) => void;
+  reload: () => Promise<void>;
 };
 
 export const Table: React.FC<Props> = (props) => {
-  const { books } = props;
+  const { books, reload } = props;
   const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
   const removeBook = () => {
     console.log(selectionModel);
 
     deleteBook(+selectionModel);
+    reload();
   };
 
   const rows = books;

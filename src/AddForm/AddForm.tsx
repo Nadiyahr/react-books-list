@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
 import * as React from 'react';
 import Box from '@mui/material/Box';
@@ -6,14 +7,24 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addBook, requestBooks } from '../api/api';
 
-export const AddForm: React.FC = () => {
+type Props = {
+  reload: () => Promise<void>;
+};
+
+export const AddForm: React.FC<Props> = ({ reload }) => {
   const [newId, setNewId] = useState(0);
   const [newTitle, setNewTitle] = useState('');
   const [newAuthor, setNewAuthor] = useState('');
   const [newCategory, setNewCathegory] = useState('');
   const [newISBN, setNewISBN] = useState(0);
   const [newYear, setNewYear] = useState(0);
-  // const [formErrors, setFormErrors] = useState({});
+  const [errors, setErrors] = useState({
+    title: '',
+    author: '',
+    category: '',
+    ISBN: '',
+    year: '',
+  });
   const history = useNavigate();
 
   const getNewId = async () => {
@@ -24,40 +35,89 @@ export const AddForm: React.FC = () => {
     setNewId(id);
   };
 
-  // function minMaxLength(text: string, minLength: number, maxLength: number) {
-  //   let result = !text || text.length < minLength;
+  const validate = (name: string, value: string) => {
+    switch (name) {
+      case 'title':
+      case 'author':
+      case 'category':
+        if (value.length === 0) {
+          setErrors((prev) => ({
+            ...prev,
+            [name]: 'This field is required',
+          }));
+        } else {
+          setErrors((prev) => ({
+            ...prev,
+            [name]: '',
+          }));
+        }
 
-  //   if (maxLength) {
-  //     result = result || text.length < minLength;
-  //   }
+        break;
 
-  //   return result;
-  // }
+      case 'ISBN':
+        if (value.length !== 13) {
+          setErrors((prev) => ({
+            ...prev,
+            [name]: 'ISBN must contain 13 numbers',
+          }));
+        } else {
+          setErrors((prev) => ({
+            ...prev,
+            [name]: '',
+          }));
+        }
+
+        break;
+
+      case 'year':
+        if (value && value.length !== 4 && +value > +(new Date().getFullYear())) {
+          setErrors((prev) => ({
+            ...prev,
+            [name]: 'Enter valid year',
+          }));
+        } else {
+          setErrors((prev) => ({
+            ...prev,
+            [name]: '',
+          }));
+        }
+
+        break;
+
+      default:
+        break;
+    }
+
+    console.log(errors);
+  };
 
   const hanndleChange = (e: React.FormEvent<EventTarget>) => {
     const { name, value } = e.target as HTMLInputElement;
 
     switch (name) {
       case 'title':
-        // if (minMaxLength(value, 2, 6)) {
-        // }
         setNewTitle(value);
+        validate(name, value);
         break;
 
       case 'author':
         setNewAuthor(value);
+        validate(name, value);
         break;
 
       case 'category':
         setNewCathegory(value);
+        validate(name, value);
         break;
 
       case 'ISBN':
         setNewISBN(+value);
+        validate(name, value);
         break;
 
       case 'year':
         setNewYear(+value);
+        validate(name, value);
         break;
 
       default:
@@ -65,18 +125,26 @@ export const AddForm: React.FC = () => {
     }
   };
 
-  const hanndleSubmit = async () => {
-    const newData: Book = {
-      id: newId,
-      title: newTitle,
-      author: newAuthor,
-      category: newCategory,
-      ISBN: newISBN,
-      year: newYear,
-    };
+  const hanndleSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    console.log(errors);
 
-    addBook(newData);
-    history('/');
+    if (Object.values(errors).every(v => v === '')) {
+      const newData: Book = {
+        id: newId,
+        title: newTitle,
+        author: newAuthor,
+        category: newCategory,
+        ISBN: newISBN,
+        year: newYear,
+      };
+
+      addBook(newData);
+      reload();
+      history('/');
+    } else {
+      console.log(errors);
+    }
   };
 
   useEffect(() => {
@@ -91,7 +159,7 @@ export const AddForm: React.FC = () => {
       }}
       noValidate
       autoComplete="off"
-      onSubmit={hanndleSubmit}
+      onSubmit={(e: React.SyntheticEvent) => hanndleSubmit(e)}
     >
       <h1>Add a Book</h1>
       <div>
@@ -100,9 +168,10 @@ export const AddForm: React.FC = () => {
           id="title"
           label="Title"
           name="title"
-          // defaultValue={newTitle}
           value={newTitle}
           onChange={hanndleChange}
+          error={errors.title !== ''}
+          helperText={errors.title}
         />
         <TextField
           required
@@ -111,6 +180,8 @@ export const AddForm: React.FC = () => {
           name="author"
           value={newAuthor}
           onChange={hanndleChange}
+          error={errors.author !== ''}
+          helperText={errors.author}
         />
         <TextField
           required
@@ -119,6 +190,8 @@ export const AddForm: React.FC = () => {
           name="category"
           value={newCategory}
           onChange={hanndleChange}
+          error={errors.category !== ''}
+          helperText={errors.category}
         />
         <TextField
           required
@@ -127,16 +200,19 @@ export const AddForm: React.FC = () => {
           type="number"
           name="ISBN"
           onChange={hanndleChange}
+          error={errors.ISBN !== ''}
           InputLabelProps={{
             shrink: true,
           }}
-          helperText="ISBN code must contain 13 numbers"
+          helperText={errors.ISBN}
         />
         <TextField
           id="year"
           label="Year"
           name="year"
           onChange={hanndleChange}
+          error={errors.year !== ''}
+          helperText={errors.year}
         />
       </div>
       <button type="submit">Submite</button>

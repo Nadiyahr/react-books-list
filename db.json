@@ -12,6 +12,17 @@
       "year": 2020
     },
     {
+      "id": 2,
+      "title": "Lethal White",
+      "author": "Robert Glabraith",
+      "category": [
+        "fiction",
+        "detective stories"
+      ],
+      "ISBN": 9780751572841,
+      "year": 2018
+    },
+    {
       "id": 3,
       "title": "Career of Evil",
       "author": "Robert Glabraith",
@@ -43,38 +54,6 @@
       ],
       "ISBN": 9781408704042,
       "year": 2013
-    },
-    {
-      "id": 6,
-      "title": "DFsdf",
-      "author": "DFdsa",
-      "category": "dsfsdz",
-      "ISBN": 4325345,
-      "year": 32423
-    },
-    {
-      "id": 7,
-      "title": "kjghjhgujh",
-      "author": "kjkljolol",
-      "category": "jkhhj, ugytuyuy",
-      "ISBN": 785686876,
-      "year": 7678
-    },
-    {
-      "id": 8,
-      "title": "fddssfdsfs",
-      "author": "dfgdfsgdgs",
-      "category": "dgdg, dfgdsg",
-      "ISBN": 45245354,
-      "year": 354534
-    },
-    {
-      "id": 9,
-      "title": "kjjjklj",
-      "author": "",
-      "category": "kjlkjlk",
-      "ISBN": 7987,
-      "year": 0
     }
   ]
 }
