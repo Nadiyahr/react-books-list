@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.scss';
@@ -13,7 +12,6 @@ export const App: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
 
   useEffect(() => {
-    console.log(books);
     loadData();
   }, []);
 

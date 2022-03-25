@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const BASE_URL = 'http://localhost:3004/books';
 
 export const requestBooks = () => {
@@ -20,8 +19,7 @@ export const addBook = (data: Book) => {
     },
     body: JSON.stringify(data),
   })
-    .then(res => res.json())
-    .catch(err => console.log(err));
+    .then(res => res.json());
 };
 
 export const deleteBook = (id: number) => {

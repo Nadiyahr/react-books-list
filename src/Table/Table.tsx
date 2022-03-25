@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import {
@@ -47,8 +46,6 @@ export const Table: React.FC<Props> = (props) => {
   const { books, reload } = props;
   const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
   const removeBook = () => {
-    console.log(selectionModel);
-
     deleteBook(+selectionModel);
     reload();
   };

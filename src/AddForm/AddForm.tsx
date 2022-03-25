@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-console */
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -87,8 +85,6 @@ export const AddForm: React.FC<Props> = ({ reload }) => {
       default:
         break;
     }
-
-    console.log(errors);
   };
 
   const hanndleChange = (e: React.FormEvent<EventTarget>) => {
@@ -127,7 +123,6 @@ export const AddForm: React.FC<Props> = ({ reload }) => {
 
   const hanndleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log(errors);
 
     if (Object.values(errors).every(v => v === '')) {
       const newData: Book = {
@@ -142,8 +137,6 @@ export const AddForm: React.FC<Props> = ({ reload }) => {
       addBook(newData);
       reload();
       history('/');
-    } else {
-      console.log(errors);
     }
   };
 
