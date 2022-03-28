@@ -1,5 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
 import TextField from '@mui/material/TextField';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -39,12 +41,12 @@ export const AddForm: React.FC<Props> = ({ reload }) => {
       case 'author':
       case 'category':
         if (value.length === 0) {
-          setErrors((prev) => ({
+          setErrors((prev: Errors) => ({
             ...prev,
             [name]: 'This field is required',
           }));
         } else {
-          setErrors((prev) => ({
+          setErrors((prev: Errors) => ({
             ...prev,
             [name]: '',
           }));
@@ -54,12 +56,12 @@ export const AddForm: React.FC<Props> = ({ reload }) => {
 
       case 'ISBN':
         if (value.length !== 13) {
-          setErrors((prev) => ({
+          setErrors((prev: Errors) => ({
             ...prev,
             [name]: 'ISBN must contain 13 numbers',
           }));
         } else {
-          setErrors((prev) => ({
+          setErrors((prev: Errors) => ({
             ...prev,
             [name]: '',
           }));
@@ -69,12 +71,12 @@ export const AddForm: React.FC<Props> = ({ reload }) => {
 
       case 'year':
         if (value && value.length !== 4 && +value > +(new Date().getFullYear())) {
-          setErrors((prev) => ({
+          setErrors((prev: Errors) => ({
             ...prev,
             [name]: 'Enter valid year',
           }));
         } else {
-          setErrors((prev) => ({
+          setErrors((prev: Errors) => ({
             ...prev,
             [name]: '',
           }));
@@ -121,10 +123,14 @@ export const AddForm: React.FC<Props> = ({ reload }) => {
     }
   };
 
+  const isValid = (data: Errors) => {
+    return Object.values(data).every(v => v === '');
+  };
+
   const hanndleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    if (Object.values(errors).every(v => v === '')) {
+    if (isValid(errors)) {
       const newData: Book = {
         id: newId,
         title: newTitle,
@@ -134,9 +140,11 @@ export const AddForm: React.FC<Props> = ({ reload }) => {
         year: newYear,
       };
 
-      addBook(newData);
-      reload();
-      history('/');
+      if (Object.values(newData).slice(5).every(i => i !== '')) {
+        await addBook(newData);
+        reload();
+        history('/');
+      }
     }
   };
 
@@ -150,7 +158,6 @@ export const AddForm: React.FC<Props> = ({ reload }) => {
       sx={{
         '& .MuiTextField-root': { m: 1, width: '25ch' },
       }}
-      noValidate
       autoComplete="off"
       onSubmit={(e: React.SyntheticEvent) => hanndleSubmit(e)}
     >
@@ -208,7 +215,14 @@ export const AddForm: React.FC<Props> = ({ reload }) => {
           helperText={errors.year}
         />
       </div>
-      <button type="submit">Submite</button>
+      <Button
+        type="submit"
+        disabled={!isValid(errors)}
+        variant="contained"
+        startIcon={<AddIcon />}
+      >
+        Add Book
+      </Button>
     </Box>
   );
 };

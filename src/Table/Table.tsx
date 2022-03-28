@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
 import {
   DataGrid, GridColDef, GridValueGetterParams, GridSelectionModel,
 } from '@mui/x-data-grid';
@@ -46,7 +47,7 @@ export const Table: React.FC<Props> = (props) => {
   const { books, reload } = props;
   const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
   const removeBook = () => {
-    deleteBook(+selectionModel);
+    selectionModel.forEach(i => deleteBook(+i));
     reload();
   };
 
@@ -55,14 +56,19 @@ export const Table: React.FC<Props> = (props) => {
   return (
     <div style={{ height: 400, width: '100%' }}>
       <h1>Tabble of my books</h1>
-      <Button variant="outlined" onClick={removeBook}>
-        Remove a ithem
+      <Button
+        disabled={selectionModel.length === 0}
+        variant="contained"
+        startIcon={<DeleteIcon />}
+        onClick={removeBook}
+      >
+        Remove Book
       </Button>
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={6}
+        rowsPerPageOptions={[6]}
         checkboxSelection
         onSelectionModelChange={(newSelectionModel) => {
           setSelectionModel(newSelectionModel);

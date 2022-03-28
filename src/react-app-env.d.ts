@@ -8,3 +8,11 @@ type Book = {
   ISBN: number,
   year: number
 };
+
+type Errors = {
+  title: string,
+  author: string,
+  category: string,
+  ISBN: string,
+  year: string
+};
