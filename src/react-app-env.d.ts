@@ -5,7 +5,7 @@ type Book = {
   title: string,
   author: string,
   category: string[] | string,
-  ISBN: number,
+  ISBN: string,
   year: number
 };
 

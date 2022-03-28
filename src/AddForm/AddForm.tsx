@@ -16,7 +16,7 @@ export const AddForm: React.FC<Props> = ({ reload }) => {
   const [newTitle, setNewTitle] = useState('');
   const [newAuthor, setNewAuthor] = useState('');
   const [newCategory, setNewCathegory] = useState('');
-  const [newISBN, setNewISBN] = useState(0);
+  const [newISBN, setNewISBN] = useState('');
   const [newYear, setNewYear] = useState(0);
   const [errors, setErrors] = useState({
     title: '',
@@ -55,7 +55,7 @@ export const AddForm: React.FC<Props> = ({ reload }) => {
         break;
 
       case 'ISBN':
-        if (value.length !== 13) {
+        if (value.length !== 13 && !(/^\d$/).test(value)) {
           setErrors((prev: Errors) => ({
             ...prev,
             [name]: 'ISBN must contain 13 numbers',
@@ -109,7 +109,7 @@ export const AddForm: React.FC<Props> = ({ reload }) => {
         break;
 
       case 'ISBN':
-        setNewISBN(+value);
+        setNewISBN(value);
         validate(name, value);
         break;
 
@@ -197,7 +197,7 @@ export const AddForm: React.FC<Props> = ({ reload }) => {
           required
           id="ISBN"
           label="ISBN"
-          type="number"
+          type="text"
           name="ISBN"
           onChange={hanndleChange}
           error={errors.ISBN !== ''}

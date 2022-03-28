@@ -24,7 +24,6 @@ const columns: GridColDef[] = [
   {
     field: 'ISBN',
     headerName: 'ISBN',
-    type: 'number',
     width: 160,
     editable: false,
   },
@@ -54,7 +53,7 @@ export const Table: React.FC<Props> = (props) => {
   const rows = books;
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div style={{ height: 420, width: '100%' }}>
       <h1>Tabble of my books</h1>
       <Button
         disabled={selectionModel.length === 0}
