@@ -17,6 +17,5 @@
 - To use this app you need to install Node.js v14
 - Fork and clone this repository
 - Run 'npm install' in your terminal
-- Uncommenet line 1 in api.ts file and comment the 2 line
 - Run 'npm run json:server' for db json server
 - Run 'npm start'

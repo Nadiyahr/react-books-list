@@ -45,9 +45,9 @@ type Props = {
 export const Table: React.FC<Props> = (props) => {
   const { books, reload } = props;
   const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
-  const removeBook = () => {
-    selectionModel.forEach(i => deleteBook(+i));
-    reload();
+  const removeBook = async () => {
+    await selectionModel.forEach(i => deleteBook(+i));
+    await reload();
   };
 
   const rows = books;
