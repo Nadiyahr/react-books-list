@@ -1,4 +1,5 @@
-const BASE_URL = 'http://localhost:3004/books';
+// const BASE_URL = 'http://localhost:3004/books';
+const BASE_URL = 'https://my-json-server.typicode.com/Nadiyahr/db-json';
 
 export const requestBooks = () => {
   return fetch(BASE_URL)
